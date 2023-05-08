@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.movies.mapper.TypeMapper">
+    <select id="listTypeWithMovies" resultMap="typeMapToMovie">
+        SELECT
+            movies.mid,
+            movies.mname,
+            movies.mimg,
+            movies.myear,
+            movies.mclass,
+            movies.maddr,
+            movies.mlong,
+            movies.minfo,
+            movies.mscore,
+            types.tid,
+            types.tname
+        FROM
+            movies
+                INNER JOIN
+            types
+            ON
+                movies.tid = types.tid
+
+    </select>
+    <resultMap id="typeMapToMovie" type="Type">
+        <id property="tid" column="tid"></id>
+        <result property="tname" column="tname"></result>
+        <collection property="movies"  ofType="Movie">
+            <id property="mid" column="mid"></id>
+            <result property="maddr" column="maddr"></result>
+            <result property="mclass" column="mclass"></result>
+            <result property="mimg" column="mimg"></result>
+            <result property="minfo" column="minfo"></result>
+            <result property="mlong" column="mlong"></result>
+            <result property="mname" column="mname"></result>
+            <result property="mscore" column="mscore"></result>
+            <result property="myear" column="myear"></result>
+        </collection>
+    </resultMap>
+</mapper>
